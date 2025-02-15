@@ -12,17 +12,17 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="account"
-                options={{
-                    title: 'Account',
-                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
-                }}
-            />
-            <Tabs.Screen
                 name="explore"
                 options={{
                     title: 'Explore',
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="font" color={color} />,
+                }}
+            />
+            <Tabs.Screen
+                name="account"
+                options={{
+                    title: 'Account',
+                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
                 }}
             />
         </Tabs>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, Text, View } from "react-native";
 
 
-export default function account() {
+export default function Account() {
     const [pictureOpen, setPictureOpen] = useState(false);
     return <View style={{ flex: 1 }}>
         <Text>

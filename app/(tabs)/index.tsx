@@ -1,16 +1,16 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Suggested from '../suggested';
-import Liked from '../liked';
-import Library from '../library';
+import { Link } from "expo-router";
+import { Text, View } from "react-native";
 
-const Tab = createMaterialTopTabNavigator();
 
 export default function Index() {
-    return (
-        <Tab.Navigator>
-            <Tab.Screen name="Suggested" component={Suggested} />
-            <Tab.Screen name="Liked" component={Liked} />
-            <Tab.Screen name="Library" component={Library} />
-        </Tab.Navigator>
-    );
+    return <View>
+        <Text>
+            Explore page
+        </Text>
+        <Link href={'/(nobottomtabs)/accountinfo'}>
+            <Text>
+                Root Page
+            </Text>
+        </Link>
+    </View>
 }
