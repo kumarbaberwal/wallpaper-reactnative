@@ -34,7 +34,8 @@ export function ImageCard({ wallpaper, onPress }: {
 
 const styles = StyleSheet.create({
     image: {
-        flex: 1,
+        width: '100%',
+        // flex: 1,
         height: 200,
         borderRadius: 10,
     },

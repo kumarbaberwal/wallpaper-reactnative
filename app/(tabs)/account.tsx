@@ -18,6 +18,6 @@ export default function Account() {
             color={'orange'}
         >
         </Button>
-        {pictureOpen && <DownloadPicture onClose={() => setPictureOpen(false)} />}
+        {/* {pictureOpen && <DownloadPicture onClose={() => setPictureOpen(false)} />} */}
     </View>
 }
