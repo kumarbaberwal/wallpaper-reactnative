@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Suggested from '../suggested';
-import Liked from '../liked';
-import Library from '../library';
+import { SplitView } from '@/components/SplitView';
+import { View } from 'react-native';
+import { useLibraryWallpapers, useLikedWallpapers, useSuggestedWallpapers, useWallpapers } from '@/hooks/useWallpapers';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -13,4 +13,25 @@ export default function Foryou() {
             <Tab.Screen name="Library" component={Library} />
         </Tab.Navigator>
     );
+}
+
+function Suggested() {
+    const wallpapers = useSuggestedWallpapers();
+    return <View style={{ flex: 1 }}>
+        <SplitView wallpapers={wallpapers}></SplitView>
+    </View>
+}
+
+function Liked() {
+    const wallpapers = useLikedWallpapers();
+    return <View style={{ flex: 1 }}>
+        <SplitView wallpapers={wallpapers}></SplitView>
+    </View>
+}
+
+function Library() {
+    const wallpapers = useLibraryWallpapers();
+    return <View style={{ flex: 1 }}>
+        <SplitView wallpapers={wallpapers}></SplitView>
+    </View>
 }

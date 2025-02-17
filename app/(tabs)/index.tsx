@@ -1,6 +1,7 @@
 import { DownloadPicture } from "@/components/BottomSheet";
 import { ImageCard } from "@/components/ImageCard";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { SplitView } from "@/components/SplitView";
 import { ThemedView } from "@/components/ThemedView";
 import { useWallpapers, Wallpaper } from "@/hooks/useWallpapers";
 import { Link } from "expo-router";
@@ -55,7 +56,7 @@ export default function Index() {
                     ></FlatList>
                 </ThemedView> 
             </ThemedView> */}
-            <ScrollView contentContainerStyle={{ flexDirection: 'row' }}>
+            {/* <ScrollView contentContainerStyle={{ flexDirection: 'row' }}>
                 <View style={styles.innerContainer}>
                     {wallpapers.filter((_, index) => index % 2 === 0).map((item) => (
                         <View style={styles.imageContainer} key={item.name}>
@@ -71,14 +72,14 @@ export default function Index() {
                         </View>
                     ))}
                 </View>
-            </ScrollView>
-
+            </ScrollView> */}
+            <SplitView wallpapers={wallpapers}></SplitView>
         </ParallaxScrollView>
-        {selectedWallpaper && (
+        {/* {selectedWallpaper && (
             <View style={styles.downloadContainer}>
                 <DownloadPicture wallpaper={selectedWallpaper} onClose={() => setSelectedWallpaper(null)} />
             </View>
-        )}
+        )} */}
     </View>
 }
 

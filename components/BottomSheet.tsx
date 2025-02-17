@@ -64,10 +64,12 @@ function DownloadButton() {
     return <Pressable
         style={{
             backgroundColor: 'black',
-            margin: 20,
-            padding: 15,
+            marginHorizontal: 40,
+            marginVertical: 20,
+            padding: 12,
             justifyContent: 'center',
             alignItems: 'center',
+            borderRadius: 10,
         }}
     >
         <Text
