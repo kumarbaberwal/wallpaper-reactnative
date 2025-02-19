@@ -1,37 +1,72 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { SplitView } from '@/components/SplitView';
-import { View } from 'react-native';
-import { useLibraryWallpapers, useLikedWallpapers, useSuggestedWallpapers, useWallpapers } from '@/hooks/useWallpapers';
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { SplitView } from "@/components/SplitView";
+import { useColorScheme, View, StyleSheet } from "react-native";
+import { useLibraryWallpapers, useLikedWallpapers, useSuggestedWallpapers, Wallpaper } from "@/hooks/useWallpapers";
+import { ThemedView } from "@/components/ThemedView";
+import { Colors } from "@/constants/Colors";
+import { useState } from "react";
+import { DownloadPicture } from "@/components/BottomSheet";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function Foryou() {
+    const colorScheme = useColorScheme() ?? "light";
+    const [selectedWallpaper, setSelectedWallpaper] = useState<Wallpaper | null>(null);
+
     return (
-        <Tab.Navigator>
-            <Tab.Screen name="Suggested" component={Suggested} />
-            <Tab.Screen name="Liked" component={Liked} />
-            <Tab.Screen name="Library" component={Library} />
-        </Tab.Navigator>
+        <ThemedView style={{ flex: 1 }}>
+            <Tab.Navigator
+                screenOptions={{
+                    tabBarStyle: {
+                        backgroundColor: Colors[colorScheme].background,
+                    },
+                    tabBarActiveTintColor: Colors[colorScheme].tabIconSelected,
+                }}
+            >
+                <Tab.Screen name="Suggested">
+                    {() => <Suggested onSelectWallpaper={setSelectedWallpaper} />}
+                </Tab.Screen>
+                <Tab.Screen name="Liked">
+                    {() => <Liked onSelectWallpaper={setSelectedWallpaper} />}
+                </Tab.Screen>
+                <Tab.Screen name="Library">
+                    {() => <Library onSelectWallpaper={setSelectedWallpaper} />}
+                </Tab.Screen>
+            </Tab.Navigator>
+
+            {/* BottomSheet placed outside to avoid gesture conflicts */}
+            {selectedWallpaper && (
+                <View style={StyleSheet.absoluteFill}>
+                    <DownloadPicture wallpaper={selectedWallpaper} onClose={() => setSelectedWallpaper(null)} />
+                </View>
+            )}
+        </ThemedView>
     );
 }
 
-function Suggested() {
+function Suggested({ onSelectWallpaper }: { onSelectWallpaper: (wallpaper: Wallpaper) => void }) {
     const wallpapers = useSuggestedWallpapers();
-    return <View style={{ flex: 1 }}>
-        <SplitView wallpapers={wallpapers}></SplitView>
-    </View>
+    return (
+        <ThemedView style={{ flex: 1 }}>
+            <SplitView wallpapers={wallpapers} onSelectWallpaper={onSelectWallpaper} />
+        </ThemedView>
+    );
 }
 
-function Liked() {
+function Liked({ onSelectWallpaper }: { onSelectWallpaper: (wallpaper: Wallpaper) => void }) {
     const wallpapers = useLikedWallpapers();
-    return <View style={{ flex: 1 }}>
-        <SplitView wallpapers={wallpapers}></SplitView>
-    </View>
+    return (
+        <ThemedView style={{ flex: 1 }}>
+            <SplitView wallpapers={wallpapers} onSelectWallpaper={onSelectWallpaper} />
+        </ThemedView>
+    );
 }
 
-function Library() {
+function Library({ onSelectWallpaper }: { onSelectWallpaper: (wallpaper: Wallpaper) => void }) {
     const wallpapers = useLibraryWallpapers();
-    return <View style={{ flex: 1 }}>
-        <SplitView wallpapers={wallpapers}></SplitView>
-    </View>
+    return (
+        <ThemedView style={{ flex: 1 }}>
+            <SplitView wallpapers={wallpapers} onSelectWallpaper={onSelectWallpaper} />
+        </ThemedView>
+    );
 }

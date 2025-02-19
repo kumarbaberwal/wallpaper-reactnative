@@ -16,7 +16,9 @@ export default function Account() {
     </SafeAreaView>
 }
 
-function LoginButtons({ colorScheme }: { colorScheme: string | null | undefined }) {
+function LoginButtons({ colorScheme }: {
+    colorScheme: string | null | undefined;
+}) {
     return <>
         <AuthButton
             icon={<Ionicons
@@ -45,7 +47,9 @@ function LoginButtons({ colorScheme }: { colorScheme: string | null | undefined 
 }
 
 
-function Header({ styles }: { styles: any }) {
+function Header({ styles }: {
+    styles: any;
+}) {
     return <ThemedView style={styles.header}>
         <ThemedText style={styles.headerText}>
             Panels
@@ -56,7 +60,9 @@ function Header({ styles }: { styles: any }) {
     </ThemedView>
 }
 
-function ThemeSelector({ styles }: { styles: any }) {
+function ThemeSelector({ styles }: {
+    styles: any;
+}) {
     return <ThemedView style={styles.header}>
         <ThemedText style={styles.headerText}>
             Settings
@@ -73,7 +79,10 @@ function ThemeSelector({ styles }: { styles: any }) {
 }
 
 function ThemeSelectorButton({ title, selected, colorScheme, styles }: {
-    title: string, selected: boolean, colorScheme: "light" | "dark", styles: any
+    title: string;
+    selected: boolean;
+    colorScheme: "light" | "dark";
+    styles: any;
 }) {
     return <Pressable style={styles.themeSelectorChild}
         onPress={() => {
@@ -119,7 +128,7 @@ function AuthButton({ label, icon, colorScheme }: {
 
 
 function createStyles({ colorScheme }: {
-    colorScheme: string | null | undefined
+    colorScheme: string | null | undefined;
 }) {
     return StyleSheet.create({
         headerText: {

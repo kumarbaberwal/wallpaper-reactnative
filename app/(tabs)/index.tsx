@@ -4,98 +4,31 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { SplitView } from "@/components/SplitView";
 import { ThemedView } from "@/components/ThemedView";
 import { useWallpapers, Wallpaper } from "@/hooks/useWallpapers";
-import { Link } from "expo-router";
 import { useState } from "react";
-import { FlatList, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, useColorScheme, View } from "react-native";
 
-
-export default function Index() {
+export default function Index(): JSX.Element {
     const wallpapers = useWallpapers();
-    const [selectedWallpaper, setSelectedWallpaper] = useState<null | Wallpaper>(null);
-    return <View style={{ flex: 1, }}>
-        <ParallaxScrollView
-            headerBackgroundColor={{ dark: 'black', light: 'white' }}
-            headerImage={
-                <Image
-                    style={{ flex: 1 }}
-                    source={{ uri: wallpapers[0]?.uri }}
-                />}
-        >
-            {/* <ThemedView
-                style={styles.container}
+    const [selectedWallpaper, setSelectedWallpaper] = useState<Wallpaper | null>(null);
+    return (
+        <ThemedView style={{ flex: 1 }}>
+            <ParallaxScrollView
+                headerBackgroundColor={{ dark: "black", light: "white" }}
+                headerImage={
+                    <Image style={{ flex: 1 }} source={{ uri: wallpapers[0].uri }} />
+                }
             >
-                <ThemedView
-                    style={styles.innerContainer}
-                >
-                    <FlatList
-                        nestedScrollEnabled={true}
-                        data={wallpapers.filter((_, index) => index % 2 === 0)}
-                        renderItem={({ item }) => <View style={styles.imageContainer}>
-                            <ImageCard
-                                onPress={() => setSelectedWallpaper(item)}
-                                wallpaper={item}
-                            />
-                        </View>}
-                        keyExtractor={item => item.name}
-                    ></FlatList>
+                <ThemedView>
+                    <SplitView wallpapers={wallpapers} onSelectWallpaper={setSelectedWallpaper} />
                 </ThemedView>
+            </ParallaxScrollView>
 
-                <ThemedView
-                    style={styles.innerContainer}
-                >
-                    <FlatList
-                        nestedScrollEnabled={true}
-                        data={wallpapers.filter((_, index) => index % 2 === 1)}
-                        renderItem={({ item }) => <View style={styles.imageContainer}>
-                            <ImageCard
-                                onPress={() => { setSelectedWallpaper(item) }}
-                                wallpaper={item}
-                            />
-                        </View>}
-                        keyExtractor={item => item.name}
-                    ></FlatList>
-                </ThemedView> 
-            </ThemedView> */}
-            {/* <ScrollView contentContainerStyle={{ flexDirection: 'row' }}>
-                <View style={styles.innerContainer}>
-                    {wallpapers.filter((_, index) => index % 2 === 0).map((item) => (
-                        <View style={styles.imageContainer} key={item.name}>
-                            <ImageCard onPress={() => setSelectedWallpaper(item)} wallpaper={item} />
-                        </View>
-                    ))}
+            {/* BottomSheet placed separately to avoid gesture conflicts */}
+            {selectedWallpaper && (
+                <View style={StyleSheet.absoluteFill}>
+                    <DownloadPicture wallpaper={selectedWallpaper} onClose={() => setSelectedWallpaper(null)} />
                 </View>
-
-                <View style={styles.innerContainer}>
-                    {wallpapers.filter((_, index) => index % 2 === 1).map((item) => (
-                        <View style={styles.imageContainer} key={item.name}>
-                            <ImageCard onPress={() => setSelectedWallpaper(item)} wallpaper={item} />
-                        </View>
-                    ))}
-                </View>
-            </ScrollView> */}
-            <SplitView wallpapers={wallpapers}></SplitView>
-        </ParallaxScrollView>
-        {/* {selectedWallpaper && (
-            <View style={styles.downloadContainer}>
-                <DownloadPicture wallpaper={selectedWallpaper} onClose={() => setSelectedWallpaper(null)} />
-            </View>
-        )} */}
-    </View>
+            )}
+        </ThemedView>
+    );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: "row",
-    },
-    innerContainer: {
-        flex: 1,
-    },
-    imageContainer: {
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-    },
-    downloadContainer: {
-        ...StyleSheet.absoluteFillObject,
-    }
-})
