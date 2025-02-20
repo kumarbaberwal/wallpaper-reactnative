@@ -5,6 +5,8 @@ import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { Wallpaper } from "@/hooks/useWallpapers";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ThemedText } from "./ThemedText";
+import * as MediaLibrary from 'expo-media-library';
+import * as FileSystem from 'expo-file-system';
 
 export const DownloadPicture = ({ onClose, wallpaper }: { onClose: () => void; wallpaper: Wallpaper }): JSX.Element => {
     const bottomSheetRef = useRef<BottomSheet>(null);
@@ -46,18 +48,45 @@ export const DownloadPicture = ({ onClose, wallpaper }: { onClose: () => void; w
                     <View style={styles.textContainer}>
                         <Text style={styles.text}>{wallpaper.name}</Text>
                     </View>
-                    <DownloadButton />
+                    <DownloadButton url={wallpaper.uri} name={wallpaper.name} />
                 </BottomSheetView>
             </BottomSheet>
         </GestureHandlerRootView>
     );
 };
 
-function DownloadButton(): JSX.Element {
+function DownloadButton({ url, name }: {
+    url: string;
+    name: string;
+}): JSX.Element {
     return (
-        <Pressable style={styles.downloadButton}>
+        <Pressable style={styles.downloadButton}
+            onPress={async () => {
+                console.log("Download Button Pressed")
+
+                const { status } = await MediaLibrary.requestPermissionsAsync();
+                if (status !== 'granted') {
+                    console.log("Permission denied!");
+                    return;
+                }
+
+                try {
+                    const fileUri = FileSystem.documentDirectory + `${name}.jpg`;
+
+                    const { uri } = await FileSystem.downloadAsync(url, fileUri);
+
+                    await MediaLibrary.saveToLibraryAsync(uri);
+                    alert("Image Saved")
+                    console.log("Download successful!");
+
+                } catch (error) {
+                    console.error("Download failed:", error);
+                }
+
+            }}
+        >
             <Text style={styles.downloadButtonText}>Download</Text>
-        </Pressable>
+        </Pressable >
     );
 }
 

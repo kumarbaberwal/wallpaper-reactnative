@@ -11,9 +11,52 @@ export default function Account() {
             <Header styles={styles} />
             <LoginButtons colorScheme={colorScheme} />
             <ThemeSelector styles={styles} />
+            <About styles={styles} />
         </ThemedView>
         <StatusBar barStyle={'dark-content'}></StatusBar>
     </SafeAreaView>
+}
+
+
+function About({ styles }: {
+    styles: any
+}) {
+
+    return <ThemedView style={styles.header}>
+        <ThemedText style={styles.headerText}>
+            About
+        </ThemedText>
+        <ThemedView style={{ gap: 10, top: 10, }}>
+            <Pressable>
+                <ThemedText style={{ fontSize: 20 }}>
+                    Account
+                </ThemedText>
+            </Pressable>
+            <Pressable>
+                <ThemedText style={{ fontSize: 20 }}>
+                    Privacy Policy
+                </ThemedText>
+            </Pressable>
+            <Pressable>
+                <ThemedText style={{ fontSize: 20 }}>
+                    Terms of Service
+                </ThemedText>
+            </Pressable>
+            <Pressable>
+                <ThemedText style={{ fontSize: 20 }}>
+                    Licenses
+                </ThemedText>
+            </Pressable>
+            <ThemedView>
+                <ThemedText style={{ fontSize: 20 }}>
+                    Version
+                </ThemedText>
+                <ThemedText>
+                    1.1.0
+                </ThemedText>
+            </ThemedView>
+        </ThemedView>
+    </ThemedView>
 }
 
 function LoginButtons({ colorScheme }: {

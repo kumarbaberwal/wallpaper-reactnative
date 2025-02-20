@@ -21,6 +21,10 @@ export default function Foryou() {
                         backgroundColor: Colors[colorScheme].background,
                     },
                     tabBarActiveTintColor: Colors[colorScheme].tabIconSelected,
+                    tabBarIndicatorStyle: {
+                        backgroundColor: 'orange',
+                        height: 5,
+                    }
                 }}
             >
                 <Tab.Screen name="Suggested">

@@ -42,7 +42,9 @@
     "react-native-screens": "~4.4.0",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
-    "yarn": "^1.22.22"
+    "yarn": "^1.22.22",
+    "expo-media-library": "~17.0.6",
+    "expo-file-system": "~18.0.11"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
